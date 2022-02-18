@@ -1,0 +1,21 @@
+{
+  "name": "jaegerly",
+  "version": "1.0.0",
+  "description": "Jaegerly servers for data transfer and validation for Fade",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "server",
+    "data",
+    "database",
+    "nodejs"
+  ],
+  "author": "fffade",
+  "license": "ISC",
+  "devDependencies": {
+    "express.js": "^1.0.0",
+    "socket.io": "^4.4.1"
+  }
+}
