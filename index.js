@@ -8,6 +8,8 @@
 
 const express = require('express');
 const env = require('dotenv');
+const data = require('./data.js');
+const log = require('./log.js');
 
 env.config({path: './.env'}); // load environment variables
 
@@ -15,8 +17,14 @@ const app = express();
 
 app.use(express.static('./view/')); // deploy html in the view folder
 
+
+require('./setupConnections.js').setup(app); // set up connection handlers
+
+
 // start the application at the defined port in .env
 app.listen(process.env.PORT, () => {
 
-    console.log(`Server running on port ${process.env.PORT}`);
-});
+    log.message(`Server running on port ${process.env.PORT}`);
+
+    data.eraseFromComp('test', 'newValue4');
+}); 
