@@ -29,7 +29,7 @@ module.exports = function(app)
     });
 
 
-    // set up receiving data from the server
+    // set up saving new data from the server
     connections.handlePost(app, "/data/:name/save/", (req, res) => {
 
         // check if the data compartment exists
@@ -49,6 +49,44 @@ module.exports = function(app)
             message: `Successfully saved data to compartment`,
             name: req.params.name,
             body: comp
-        })
+        });
+    });
+
+    // set up resetting data from the server
+    connections.handlePost(app, "/data/:name/empty/", (req, res) => {
+
+        // check if the data compartment exists
+        if(!data.compExists(req.params.name)) {
+            return res.send({"Error": "Compartment does not exist"});
+        }
+
+        // delete the compartment
+        data.deleteComp(req.params.name);
+
+        res.send({
+            message: `Successfully deleted compartment`,
+            name: req.params.name
+        });
+    });
+
+    // set up erasing data points from the server
+    connections.handlePost(app, "/data/:name/erase/:key", (req, res) => {
+
+        // check if the data compartment exists
+        if(!data.compExists(req.params.name)) {
+            return res.send({"Error": "Compartment does not exist"});
+        }
+
+        const keyValue = data.readComp(req.params.name)[req.params.key];
+
+        // erase the value
+        data.eraseFromComp(req.params.name, req.params.key); 
+
+        res.send({
+            message: `Successfully erased value '${req.params.key}'`,
+            name: req.params.name,
+            key: req.params.key,
+            oldValue: keyValue
+        });
     });
 };
