@@ -53,7 +53,7 @@ module.exports.handleGet = function(app, path, callback) {
 
 
 /* used by connection files to handle a POST connection */
-module.exports.handleGet = function(app, path, callback) {
+module.exports.handlePost = function(app, path, callback) {
 
     // setup the handler at the path
     app.post(path, (req, res) => {
