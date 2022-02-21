@@ -37,9 +37,18 @@ module.exports = function(app)
             data.newComp(req.params.name);
         }
 
+        // run through variables to save and replace them
+        for(let saveKey in req.body) {
+            data.writeToComp(req.params.name, saveKey, req.body[saveKey]);
+        }
+
+        // return the new body
         const comp = data.readComp(req.params.name);
 
-        res.send(req.body);
-        
+        res.send({
+            message: `Successfully saved data to compartment`,
+            name: req.params.name,
+            body: comp
+        })
     });
 };
