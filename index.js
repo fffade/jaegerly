@@ -8,6 +8,7 @@
 
 const express = require('express');
 const env = require('dotenv');
+const bodyParser = require('body-parser');
 const data = require('./data.js');
 const log = require('./log.js');
 
@@ -15,6 +16,7 @@ env.config({path: './.env'}); // load environment variables
 
 const app = express();
 
+app.use(bodyParser.json());
 app.use(express.static('./view/')); // deploy html in the view folder
 
 
